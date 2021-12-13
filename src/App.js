@@ -1,25 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
+import Form from './Components/Form';
+import Loading from './Components/Loading';
+import { useGlobalContext } from './context';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const { isWaiting, isLoading, isError, questions, index } =
+    useGlobalContext();
+
+  if (isWaiting) {
+    return <Form />;
+  }
+
+  if (isLoading) {
+    return <Loading />;
+  }
+  const { question, incorrect_answers, correct_answer } = questions[index];
+  const answers = [...incorrect_answers, correct_answer];
+  return <main></main>;
 }
 
 export default App;
